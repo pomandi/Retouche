@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    margin: 15px;
+}
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="number"], 
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+h1, h2 {
+    color: #333;
+}
+
+/* Mevcut CSS kodunuzun altına ekleyin */
+select, input[type="checkbox"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);  /* Boyutu 1.5 katına çıkar */
+    margin: 4px 10px 4px 0;  /* üst, sağ, alt, sol boşluklar */
+}

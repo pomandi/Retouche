@@ -1,0 +1,6 @@
+{% extends "admin/change_form.html" %}
+{% block submit_buttons_bottom %}
+    <a href="{% url 'admin:tailoring_customer_send_email' original.pk %}" class="button">E-posta Gönder</a>
+    <a href="{% url 'admin:tailoring_customer_send_sms' original.pk %}" class="button">SMS Gönder</a>
+    {{ block.super }}
+{% endblock %}

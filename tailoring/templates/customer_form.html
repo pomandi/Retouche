@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Müşteri Formu</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <h1>Müşteri Bilgileri</h1>
+    <h2 id="total_price">Toplam Tutar: 0€</h2>
+
+    {% comment %} {% if total_price %}
+    <h2>Toplam Tutar: {{ total_price }}</h2>
+    {% endif %} {% endcomment %}
+    {% if urgent_weddings %}
+    <p style="color: red;">Düğün tarihi 10 günden az!</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.name.label_tag }} {{ form.name }}<br>
+        {{ form.email.label_tag }} {{ form.email }}<br>
+        {{ form.phone.label_tag }} {{ form.phone }}<br>
+        {{ form.land.label_tag }} {{ form.land }}<br>
+        {{ form.straat.label_tag }} {{ form.straat }}<br>
+        {{ form.huisnummer.label_tag }} {{ form.huisnummer }}<br>
+        {{ form.bus.label_tag }} {{ form.bus }}<br>
+        {{ form.postcode.label_tag }} {{ form.postcode }}<br>
+        {{ form.stad.label_tag }} {{ form.stad }}<br>
+        {{ form.wedding_date.label_tag }} {{ form.wedding_date }}<br>
+        {{ form.productvoorraadnummer.label_tag }} {{ form.productvoorraadnummer }}<br>
+        {{ form.jasmaat.label_tag }} {{ form.jasmaat }}<br>
+        {{ form.vestmaat.label_tag }} {{ form.vestmaat }}<br>
+        {{ form.broekmaat.label_tag }} {{ form.broekmaat }}<br>
+        {{ form.location.label_tag }} {{ form.location }}<br>
+        {{ form.is_pickup.label_tag }} {{ form.is_pickup }}<br>
+        {{ form.description.label_tag }} {{ form.description }}<br>
+        
+        <h2>Maatwerkdiensten</h2>
+        {% for service in services %}
+        <input type="checkbox" name="services" value="{{ service.id }}" data-price="{{ service.price }}"> {{ service.name }}<br>
+
+        {% endfor %}
+        <button type="submit">Kaydet</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let total_price = 0;
+            const serviceCheckboxes = document.querySelectorAll('input[name="services"]');
+            const totalElement = document.getElementById('total_price');
+    
+            serviceCheckboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    if (this.checked) {
+                        total_price += price;
+                    } else {
+                        total_price -= price;
+                    }
+                    totalElement.innerText = "Toplam Tutar: " + total_price.toFixed(2) + "€";
+                });
+            });
+        });
+
+
+        $( function() {
+            $( "#id_wedding_date" ).datepicker({
+                showOn: "both",
+                buttonImageOnly: false,
+            });
+        } );
+
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const dateInput = document.getElementById("id_wedding_date");
+            dateInput.addEventListener("focus", function() {
+                this.type = 'date';
+            });
+            dateInput.addEventListener("blur", function() {
+                this.type = 'text';
+            });
+        });
+        
+    </script>
+
+   
+        
+    
+</body>
+</html>

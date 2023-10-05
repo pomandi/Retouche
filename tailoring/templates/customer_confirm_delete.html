@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Müşteri Silme Onayı</title>
+</head>
+<body>
+    <h1>{{ customer.name }} adlı müşteriyi silmek istediğinize emin misiniz?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Evet, Sil</button>
+    </form>
+    <a href="#">Hayır, İptal</a>
+</body>
+</html>

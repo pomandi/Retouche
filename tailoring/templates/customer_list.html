@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Müşteri Listesi</title>
+</head>
+<body>
+    <h1>Müşteri Listesi</h1>
+    <ul>
+        {% for customer in customers %}
+            <li>{{ customer.name }} - {{ customer.location }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
