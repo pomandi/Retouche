@@ -1,6 +1,23 @@
 {% extends "admin/change_form.html" %}
+{% block field_sets %}
+    {{ block.super }}
+    <div>
+        <label for="id_service_type">Hizmet Türü:</label>
+        <select id="id_service_type" name="service_type">
+            <option value="siparis">Sipariş</option>
+            <option value="terzilik">Terzilik Hizmeti</option>
+        </select>
+    </div>
+{% endblock %}
+
+{% comment %} {% block submit_buttons_bottom %}
+    <a href="{% url 'admin:tailoring_customer_send_email' original.pk %}" class="button">E-posta Gönder</a>
+    <a href="{% url 'admin:tailoring_customer_send_sms' original.pk %}" class="button">SMS Gönder</a>
+    {{ block.super }}
+{% endblock %} {% endcomment %}
 {% block submit_buttons_bottom %}
     <a href="{% url 'admin:tailoring_customer_send_email' original.pk %}" class="button">E-posta Gönder</a>
     <a href="{% url 'admin:tailoring_customer_send_sms' original.pk %}" class="button">SMS Gönder</a>
+    <a href="{% url 'admin:tailoring_customer_print_pdf' original.pk %}" class="button">Print PDF</a>  <!-- yeni ekledik -->
     {{ block.super }}
 {% endblock %}
