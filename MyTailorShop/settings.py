@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-sdu*0$q0c2lmv*9otk63r9yv28&!dw%2r#6r&8e+i!8_f@ua6w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['retouche-ce58e7481386.herokuapp.com', 'localhost', '127.0.0.1']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
