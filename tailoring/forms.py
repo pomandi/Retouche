@@ -3,9 +3,14 @@ from .models import Customer, TailoringService, Location  # Location modelini ek
 from django.forms import DateInput
 
 class CustomerForm(forms.ModelForm):
+    service_type = forms.ChoiceField(
+        choices=Customer.SERVICE_CHOICES,
+        required=True,
+        initial=None
+    )
     class Meta:
         model = Customer
-        fields = ['name', 'email', 'phone', 'land', 'straat', 'huisnummer','stad', 'bus', 'postcode', 'wedding_date', 'location', 'is_pickup', 'description','services','productvoorraadnummer', 'jasmaat', 'vestmaat', 'broekmaat']
+        fields = ['service_type','name', 'email', 'phone', 'land', 'straat', 'huisnummer','stad', 'bus', 'postcode', 'wedding_date', 'location', 'is_pickup', 'description','services','productvoorraadnummer', 'jasmaat', 'vestmaat', 'broekmaat']
         widgets = {
             'wedding_date': DateInput(attrs={'type': 'date'}),
         }

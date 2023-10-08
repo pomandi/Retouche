@@ -15,6 +15,18 @@ class TailoringService(models.Model):
     
 
 class Customer(models.Model):
+    SERVICE_CHOICES = [
+        ('', '---------'),  # Boş bir seçenek ekleyin
+        ('siparis', 'Sipariş'),
+        ('terzilik', 'Terzilik Hizmeti'),
+    ]
+    service_type = models.CharField(
+        max_length=10,
+        choices=SERVICE_CHOICES,
+        default='',
+        blank=False,
+        null=False
+    )
     services = models.ManyToManyField('TailoringService')
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
     unique_id = models.AutoField(primary_key=True)

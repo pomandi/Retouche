@@ -22,6 +22,7 @@
 
     <form method="post">
         {% csrf_token %}
+        {{ form.service_type.label_tag }} {{ form.service_type }}<br>
         {{ form.name.label_tag }} {{ form.name }}<br>
         {{ form.email.label_tag }} {{ form.email }}<br>
         {{ form.phone.label_tag }} {{ form.phone }}<br>
