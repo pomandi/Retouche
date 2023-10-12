@@ -16,7 +16,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.http import FileResponse, HttpResponse  
 import os
-
+import requests
 from io import BytesIO
 
 
@@ -49,7 +49,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
 
     def get_changeform_initial_data(self, request):
-        return {'email_content': 'Varsayılan e-posta içeriği burada', 'sms_content': 'Varsayılan SMS içeriği burada'}
+        return {'email_content': 'Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations ,', 'sms_content': 'Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations ,'}
     
 
 
@@ -136,28 +136,29 @@ def generate_pdf(customer):
     
     # PDF içeriği
         data = [
-            ["Müşteri Bilgileri", ""],
-            ["Adı", customer.name],
-            ["E-posta", customer.email],
-            ["Telefon", customer.phone],
-            ["Ülke", customer.land],
-            ["Sokak", customer.straat],
-            ["Ev Numarası", customer.huisnummer],
-            ["Otobüs Numarası", customer.bus],
-            ["Posta Kodu", customer.postcode],
-            ["Şehir", customer.stad],
-            ["Ürün Stok Numarası", customer.productvoorraadnummer],
-            ["Ceket Bedeni", customer.jasmaat],
-            ["Yelek Bedeni", customer.vestmaat],
-            ["Pantolon Bedeni", customer.broekmaat],
-            ["Düğün Tarihi", customer.wedding_date],
-            ["Teslim Alındı mı?", customer.is_pickup],
-            ["E-posta İçeriği", customer.email_content],
-            ["SMS İçeriği", customer.sms_content],
-            ["Açıklama", customer.description],
-            ["Hizmetler", services],
-            ["Konum", location]
+            ["Customer Information", ""],
+            ["Name", customer.name],
+            ["Email", customer.email],
+            ["Phone", customer.phone],
+            ["Country", customer.land],
+            ["Street", customer.straat],
+            ["House Number", customer.huisnummer],
+            ["Bus Number", customer.bus],
+            ["Postal Code", customer.postcode],
+            ["City", customer.stad],
+            ["Product Stock Number", customer.productvoorraadnummer],
+            ["Jacket Size", customer.jasmaat],
+            ["Vest Size", customer.vestmaat],
+            ["Pants Size", customer.broekmaat],
+            ["Wedding Date", customer.wedding_date],
+            ["Is Picked Up?", customer.is_pickup],
+            ["Email Content", customer.email_content],
+            ["SMS Content", customer.sms_content],
+            ["Description", customer.description],
+            ["Services", services],
+            ["Location", location]
         ]
+
         # Tablo stilini ayarlayın
         style = TableStyle([
             ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
@@ -183,7 +184,7 @@ def generate_pdf(customer):
         styles = getSampleStyleSheet()
         title_style = styles["Heading1"]
         title_style.alignment = 1  # Merkeze hizala
-        elements.append(Paragraph("Müşteri Bilgileri", title_style))
+        elements.append(Paragraph("Customer Information", title_style))
         elements.append(table)
 
         doc.build(elements)
