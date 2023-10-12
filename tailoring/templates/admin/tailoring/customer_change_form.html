@@ -19,8 +19,10 @@
     {{ block.super }}
 {% endblock %} {% endcomment %}
 {% block submit_buttons_bottom %}
-    <a href="{% url 'admin:tailoring_customer_send_email' original.pk %}" class="button">E-posta Gönder</a>
-    <a href="{% url 'admin:tailoring_customer_send_sms' original.pk %}" class="button">SMS Gönder</a>
-    <a href="{% url 'admin:tailoring_customer_print_pdf' original.pk %}" class="button">Print PDF</a>  <!-- yeni ekledik -->
+    {% if original and original.pk %}
+        <a href="{% url 'admin:tailoring_customer_send_email' original.pk %}" class="button">E-posta Gönder</a>
+        <a href="{% url 'admin:tailoring_customer_send_sms' original.pk %}" class="button">SMS Gönder</a>
+        <a href="{% url 'admin:tailoring_customer_print_pdf' original.pk %}" class="button">Print PDF</a>  <!-- yeni ekledik -->
+    {% endif %}
     {{ block.super }}
 {% endblock %}
