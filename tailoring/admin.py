@@ -18,6 +18,9 @@ from django.http import FileResponse, HttpResponse
 import os
 import requests
 from io import BytesIO
+from reportlab.graphics.barcode import qr
+from reportlab.graphics.shapes import Drawing
+from reportlab.platypus import Spacer
 
 
 class CustomerAdmin(admin.ModelAdmin):
@@ -181,15 +184,35 @@ def generate_pdf(customer):
         table._argW[0] = 9 * cm
         table._argW[1] = 9 * cm
 
-            # PDF'e ekleyin
+            # QR Kodu oluştur
+        whatsapp_url = "https://wa.me/32489107182"
+        qr_code = qr.QrCodeWidget(whatsapp_url)
+        qr_code.barWidth = 2 * cm
+        qr_code.barHeight = 2 * cm
+        d = Drawing(50, 50)
+        d.add(qr_code)
+
+        # Felemenkçe metin
+        whatsapp_text = Paragraph("Als u een vraag heeft over uw bestelling, kunt u contact met ons opnemen via WhatsApp door deze barcode te scannen.", getSampleStyleSheet()["BodyText"])
+
+        # PDF'e ekleyin
         elements = []
         styles = getSampleStyleSheet()
         title_style = styles["Heading1"]
         title_style.alignment = 1  # Merkeze hizala
         elements.append(Paragraph("Customer Information", title_style))
         elements.append(table)
+        elements.append(Spacer(1, 20))  # Yükseklik 20 olan bir boşluk ekleyin
+        elements.append(d)  # QR kodu ekleyin
+        elements.append(Spacer(1, 10))  # Yükseklik 10 olan bir boşluk ekleyin
+        elements.append(whatsapp_text)  # Felemenkçe metni ekleyin
 
         doc.build(elements)
         pdf = buffer.getvalue()
         buffer.close()
         return pdf
+
+
+
+
+
