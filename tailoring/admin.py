@@ -136,6 +136,8 @@ def generate_pdf(customer):
     
     # PDF içeriği
         data = [
+             
+            ["unique_id", customer.unique_id],
             ["Customer Information", ""],
             ["Name", customer.name],
             ["Email", customer.email],

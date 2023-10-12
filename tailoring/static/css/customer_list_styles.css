@@ -1,0 +1,28 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+.customer-container {
+    margin-top: 50px;
+}
+.customer-icon {
+    font-size: 100px;
+    color: green;
+}
+.customer-message {
+    font-size: 24px;
+    margin-top: 20px;
+}
+.customer-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: blue;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.customer-button:hover {
+    background-color: darkblue;
+}

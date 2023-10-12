@@ -2,22 +2,7 @@
 {% load static %}
 {% load static i18n %}
 
-{% block field_sets %}
-    {{ block.super }}
-    <div>
-        <label for="id_service_type">Hizmet Türü:</label>
-        <select id="id_service_type" name="service_type">
-            <option value="siparis">{% trans "Sipariş" %}</option>
-            <option value="terzilik">{% trans "Terzilik Hizmeti" %}</option>
-        </select>
-    </div>
-{% endblock %}
 
-{% comment %} {% block submit_buttons_bottom %}
-    <a href="{% url 'admin:tailoring_customer_send_email' original.pk %}" class="button">E-posta Gönder</a>
-    <a href="{% url 'admin:tailoring_customer_send_sms' original.pk %}" class="button">SMS Gönder</a>
-    {{ block.super }}
-{% endblock %} {% endcomment %}
 {% block submit_buttons_bottom %}
     {% if original and original.pk %}
         <a href="{% url 'admin:tailoring_customer_send_email' original.pk %}" class="button">E-posta Gönder</a>

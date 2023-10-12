@@ -1,14 +1,24 @@
+{% load static %}
+
 <!DOCTYPE html>
+
 <html>
 <head>
-    <title>Customer List</title>
-</head>
-<body>
-    <h1>Customer List</h1>
-    <ul>
-        {% for customer in customers %}
-            <li>{{ customer.name }} - {{ customer.location }}</li>
-        {% endfor %}
-    </ul>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Created</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/customer_list_styles.css' %}">
+    <body>
+    <div class="customer-container">
+        <div class="customer-icon">
+            &#x2713; <!-- Unicode for a checkmark -->
+        </div>
+        <div class="customer-message">
+            Order Created
+        </div>
+        <a href="https://retouche-ce58e7481386.herokuapp.com/en/tailoring/create/" class="customer-button">
+            Go to Home Page
+        </a>
+    </div>
 </body>
 </html>
