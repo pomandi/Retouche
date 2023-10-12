@@ -56,7 +56,13 @@
         <label for="{{ form.bus.id_for_label }}">{% trans "Bus" %}:</label> {{ form.bus }}<br>
         <label for="{{ form.postcode.id_for_label }}">{% trans "Postal Code" %}:</label> {{ form.postcode }}<br>
         <label for="{{ form.stad.id_for_label }}">{% trans "City" %}:</label> {{ form.stad }}<br>
-        <label for="{{ form.wedding_date.id_for_label }}">{% trans "Wedding Date" %}:</label> {{ form.wedding_date }}<br>
+        <label for="{{ form.wedding_date.id_for_label }}">{% trans "Wedding Date" %}:</label>
+        {% if form.wedding_date %}
+            <input type="text" id="{{ form.wedding_date.id_for_label }}" name="{{ form.wedding_date.name }}" value="{{ form.wedding_date.value|default_if_none:"" }}">
+        {% else %}
+            {{ form.wedding_date }}
+        {% endif %}
+        <br>
         <label for="{{ form.productvoorraadnummer.id_for_label }}">{% trans "Product Stock Number" %}:</label> {{ form.productvoorraadnummer }}<br>
         <label for="{{ form.jasmaat.id_for_label }}">{% trans "Jacket Size" %}:</label> {{ form.jasmaat }}<br>
         <label for="{{ form.vestmaat.id_for_label }}">{% trans "Vest Size" %}:</label> {{ form.vestmaat }}<br>
@@ -95,12 +101,12 @@
         });
 
 
-        {% comment %} $( function() {
+        $( function() {
             $( "#id_wedding_date" ).datepicker({
                 showOn: "both",
                 buttonImageOnly: false,
             });
-        } ); {% endcomment %}
+        } );
 
 
 
