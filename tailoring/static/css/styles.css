@@ -1,9 +1,9 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
+    margin: 5;
     padding: 0;
-    margin: 15px;
+    overflow-x: hidden;
 }
 input[type="text"],
 input[type="email"],
@@ -44,3 +44,10 @@ input[type="checkbox"] {
     transform: scale(1.5);  /* Boyutu 1.5 katına çıkar */
     margin: 4px 10px 4px 0;  /* üst, sağ, alt, sol boşluklar */
 }
+
+.admin-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none; }

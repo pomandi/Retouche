@@ -1,17 +1,36 @@
+{% load static i18n %}
 {% load static %}
+
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Müşteri Formu</title>
+    <title>Pomandi.com men's suit customer tracking form</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
-    <h1>Müşteri Bilgileri</h1>
-    <h2 id="total_price">Toplam Tutar: 0€</h2>
+
+    <div style="position: absolute; top: 10px; left: 50%; transform: translate(-50%, 0);">
+        <a href="/admin/" class="admin-button">Inloggen</a>
+    </div>
+
+    <div style="position: absolute; top: 10px; right: 10px;">
+        <a href="/en/tailoring/create/">English</a> |
+        <a href="/fr/tailoring/create/">Français</a> |
+        <a href="/nl/tailoring/create/">Nederlands</a>
+    </div>
+    
+    
+
+
+    <h1>{% trans "Müşteri Bilgileri" %}</h1>
+        
+    <h2 id="total_price">{% trans "Toplam Tutar:" %} 0€</h2>
 
     {% comment %} {% if total_price %}
     <h2>Toplam Tutar: {{ total_price }}</h2>
@@ -22,31 +41,33 @@
 
     <form method="post">
         {% csrf_token %}
-        {{ form.service_type.label_tag }} {{ form.service_type }}<br>
-        {{ form.name.label_tag }} {{ form.name }}<br>
-        {{ form.email.label_tag }} {{ form.email }}<br>
-        {{ form.phone.label_tag }} {{ form.phone }}<br>
-        {{ form.land.label_tag }} {{ form.land }}<br>
-        {{ form.straat.label_tag }} {{ form.straat }}<br>
-        {{ form.huisnummer.label_tag }} {{ form.huisnummer }}<br>
-        {{ form.bus.label_tag }} {{ form.bus }}<br>
-        {{ form.postcode.label_tag }} {{ form.postcode }}<br>
-        {{ form.stad.label_tag }} {{ form.stad }}<br>
-        {{ form.wedding_date.label_tag }} {{ form.wedding_date }}<br>
-        {{ form.productvoorraadnummer.label_tag }} {{ form.productvoorraadnummer }}<br>
-        {{ form.jasmaat.label_tag }} {{ form.jasmaat }}<br>
-        {{ form.vestmaat.label_tag }} {{ form.vestmaat }}<br>
-        {{ form.broekmaat.label_tag }} {{ form.broekmaat }}<br>
-        {{ form.location.label_tag }} {{ form.location }}<br>
-        {{ form.is_pickup.label_tag }} {{ form.is_pickup }}<br>
-        {{ form.description.label_tag }} {{ form.description }}<br>
+        <label for="{{ form.service_type.id_for_label }}">{% trans "Service Type" %}:</label> {{ form.service_type }}<br>
+        <label for="{{ form.name.id_for_label }}">{% trans "Name" %}:</label> {{ form.name }}<br>
+        <label for="{{ form.email.id_for_label }}">{% trans "Email" %}:</label> {{ form.email }}<br>
+        <label for="{{ form.phone.id_for_label }}">{% trans "Phone" %}:</label> {{ form.phone }}<br>
+        <label for="{{ form.land.id_for_label }}">{% trans "Country" %}:</label> {{ form.land }}<br>
+        <label for="{{ form.straat.id_for_label }}">{% trans "Street" %}:</label> {{ form.straat }}<br>
+        <label for="{{ form.huisnummer.id_for_label }}">{% trans "House Number" %}:</label> {{ form.huisnummer }}<br>
+        <label for="{{ form.bus.id_for_label }}">{% trans "Bus" %}:</label> {{ form.bus }}<br>
+        <label for="{{ form.postcode.id_for_label }}">{% trans "Postal Code" %}:</label> {{ form.postcode }}<br>
+        <label for="{{ form.stad.id_for_label }}">{% trans "City" %}:</label> {{ form.stad }}<br>
+        <label for="{{ form.wedding_date.id_for_label }}">{% trans "Wedding Date" %}:</label> {{ form.wedding_date }}<br>
+        <label for="{{ form.productvoorraadnummer.id_for_label }}">{% trans "Product Stock Number" %}:</label> {{ form.productvoorraadnummer }}<br>
+        <label for="{{ form.jasmaat.id_for_label }}">{% trans "Jacket Size" %}:</label> {{ form.jasmaat }}<br>
+        <label for="{{ form.vestmaat.id_for_label }}">{% trans "Vest Size" %}:</label> {{ form.vestmaat }}<br>
+        <label for="{{ form.broekmaat.id_for_label }}">{% trans "Pants Size" %}:</label> {{ form.broekmaat }}<br>
+        <label for="{{ form.location.id_for_label }}">{% trans "Location" %}:</label> {{ form.location }}<br>
+        <label for="{{ form.is_pickup.id_for_label }}">{% trans "Is Pickup" %}:</label> {{ form.is_pickup }}<br>
+        <label for="{{ form.description.id_for_label }}">{% trans "Description" %}:</label> {{ form.description }}<br>
         
-        <h2>Maatwerkdiensten</h2>
+        <h2>{% trans "Maatwerkdiensten" %}</h2>
+
         {% for service in services %}
         <input type="checkbox" name="services" value="{{ service.id }}" data-price="{{ service.price }}"> {{ service.name }}<br>
 
         {% endfor %}
-        <button type="submit">Kaydet</button>
+        <button type="submit">{% trans "Kaydet" %}</button>
+
     </form>
 
     <script>

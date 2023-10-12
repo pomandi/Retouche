@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-11 13:33+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: .\tailoring\templates\customer_form.html:28
+msgid "Service Type"
+msgstr "Type de Service"
+
+#: .\tailoring\templates\customer_form.html:29
+msgid "Name"
+msgstr "Nom"
+
+#: .\tailoring\templates\customer_form.html:30
+msgid "Email"
+msgstr "Email"
+
+#: .\tailoring\templates\customer_form.html:31
+msgid "Phone"
+msgstr "Téléphone"
+
+#: .\tailoring\templates\customer_form.html:32
+msgid "Country"
+msgstr "Pays"
+
+#: .\tailoring\templates\customer_form.html:33
+msgid "Street"
+msgstr "Rue"
+
+#: .\tailoring\templates\customer_form.html:34
+msgid "House Number"
+msgstr "Numéro de Maison"
+
+#: .\tailoring\templates\customer_form.html:35
+msgid "Bus"
+msgstr "Bus"
+
+#: .\tailoring\templates\customer_form.html:36
+msgid "Postal Code"
+msgstr "Code Postal"
+
+#: .\tailoring\templates\customer_form.html:37
+msgid "City"
+msgstr "Ville"
+
+#: .\tailoring\templates\customer_form.html:38
+msgid "Wedding Date"
+msgstr "Date de Mariage"
+
+#: .\tailoring\templates\customer_form.html:39
+msgid "Product Stock Number"
+msgstr "Numéro de Stock du Produit"
+
+#: .\tailoring\templates\customer_form.html:40
+msgid "Jacket Size"
+msgstr "Taille de Veste"
+
+#: .\tailoring\templates\customer_form.html:41
+msgid "Vest Size"
+msgstr "Taille de Gilet"
+
+#: .\tailoring\templates\customer_form.html:42
+msgid "Pants Size"
+msgstr "Taille de Pantalon"
+
+#: .\tailoring\templates\customer_form.html:43
+msgid "Location"
+msgstr "Emplacement"
+
+#: .\tailoring\templates\customer_form.html:44
+msgid "Is Pickup"
+msgstr "Est à Ramasser"
+
+#: .\tailoring\templates\customer_form.html:45
+msgid "Description"
+msgstr "Description"
+
+msgid "Müşteri Bilgileri"
+msgstr "Informations client"
+
+msgid "Toplam Tutar:"
+msgstr "Montant total:"
+
+
+msgid "Maatwerkdiensten"
+msgstr "Services sur mesure"
+
+msgid "Kaydet"
+msgstr "Enregistrer"
+
+msgid "Siparis"
+msgstr "Commande"
+
+
+msgid "Terzilik Hizmeti"
+msgstr "Service de couture"

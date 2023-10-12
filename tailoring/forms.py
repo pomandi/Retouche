@@ -8,12 +8,16 @@ class CustomerForm(forms.ModelForm):
         required=True,
         initial=None
     )
+    name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    phone = forms.CharField(required=True)
+    wedding_date = forms.DateField(required=True, widget=DateInput(attrs={'type': 'date'}))
+    is_pickup = forms.BooleanField(required=True)
+
     class Meta:
         model = Customer
-        fields = ['service_type','name', 'email', 'phone', 'land', 'straat', 'huisnummer','stad', 'bus', 'postcode', 'wedding_date', 'location', 'is_pickup', 'description','services','productvoorraadnummer', 'jasmaat', 'vestmaat', 'broekmaat']
-        widgets = {
-            'wedding_date': DateInput(attrs={'type': 'date'}),
-        }
+        fields = ['service_type', 'name', 'email', 'phone', 'land', 'straat', 'huisnummer', 'stad', 'bus', 'postcode', 'wedding_date', 'location', 'is_pickup', 'description', 'services', 'productvoorraadnummer', 'jasmaat', 'vestmaat', 'broekmaat']
+
 
     def __init__(self, *args, **kwargs):
         super(CustomerForm, self).__init__(*args, **kwargs)

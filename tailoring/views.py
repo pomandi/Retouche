@@ -4,7 +4,10 @@ from .models import TailoringService,Customer
 from django.core.mail import send_mail
 from twilio.rest import Client
 from django.shortcuts import get_object_or_404
-
+from django.utils import translation
+from django.http import HttpResponseRedirect
+from django.conf import settings
+import requests
 from datetime import date, timedelta
 
 def customer_create_view(request):
@@ -78,3 +81,18 @@ def customer_list_view(request):
     else:
         customers = Customer.objects.all()
     return render(request, 'customer_list.html', {'customers': customers})
+
+def set_language(request):
+
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info('set_language function was called')
+
+    user_language = request.GET.get('lang', 'en')  # 'en' varsayılan dil kodudur.
+    print("set_language çalıştı")
+    if user_language in dict(settings.LANGUAGES).keys():
+        translation.activate(user_language)
+        request.session['django_language'] = user_language  # Varsayılan dil çerezi adını doğrudan kullandık.
+        
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+

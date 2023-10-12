@@ -17,8 +17,8 @@ class TailoringService(models.Model):
 class Customer(models.Model):
     SERVICE_CHOICES = [
         ('', '---------'),  # Boş bir seçenek ekleyin
-        ('siparis', 'Sipariş'),
-        ('terzilik', 'Terzilik Hizmeti'),
+        ('siparis', 'Order'),
+        ('terzilik', 'Tailoring Service'),
     ]
     service_type = models.CharField(
         max_length=10,
@@ -27,18 +27,18 @@ class Customer(models.Model):
         blank=False,
         null=False
     )
-    services = models.ManyToManyField('TailoringService')
+    services = models.ManyToManyField('TailoringService', blank=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
     unique_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
-    land = models.CharField(max_length=50)
-    straat = models.CharField(max_length=100)
-    huisnummer = models.CharField(max_length=10)
-    bus = models.CharField(max_length=10)
-    postcode = models.CharField(max_length=10)
-    stad = models.CharField(max_length=50)
+    land = models.CharField(max_length=50, null=True, blank=True)
+    straat = models.CharField(max_length=100, null=True, blank=True)
+    huisnummer = models.CharField(max_length=10, null=True, blank=True)
+    bus = models.CharField(max_length=10, null=True, blank=True)
+    postcode = models.CharField(max_length=10, null=True, blank=True)
+    stad = models.CharField(max_length=50, null=True, blank=True)
     productvoorraadnummer = models.CharField(max_length=50, null=True, blank=True)
     jasmaat = models.IntegerField(null=True, blank=True)
     vestmaat = models.IntegerField(null=True, blank=True)
