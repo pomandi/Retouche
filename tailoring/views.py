@@ -42,27 +42,6 @@ def customer_create_view(request):
 
 
 
-# def send_notifications(customer):
-#     # Twilio ayarları
-#     account_sid = 'TWILIO_ACCOUNT_SID'
-#     auth_token = 'TWILIO_AUTH_TOKEN'
-#     client = Client(account_sid, auth_token)
-
-#     # SMS gönderme
-#     client.messages.create(
-#         body='Ürününüz hazır!',
-#         from_='+1234567890',  # Twilio telefon numarası
-#         to=customer.phone
-#     )
-
-#     # E-posta gönderme
-#     send_mail(
-#         'Ürün Hazır',
-#         'Ürününüz hazır ve teslim alınabilir.',
-#         'your_email@example.com',
-#         [customer.email],
-#         fail_silently=False,
-#     )
 
 
 
