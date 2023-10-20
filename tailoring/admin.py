@@ -21,12 +21,13 @@ from io import BytesIO
 from reportlab.graphics.barcode import qr
 from reportlab.graphics.shapes import Drawing
 from reportlab.platypus import Spacer
+from django.contrib import messages
 
 
 class CustomerAdmin(admin.ModelAdmin):
     change_form_template = 'admin/tailoring/customer_change_form.html'
 
-    list_display = ('service_type','name', 'wedding_date', 'location', 'is_pickup', 'email', 'phone')
+    list_display = ('unique_id','service_type','name', 'wedding_date', 'location', 'is_pickup', 'email', 'phone')
     fields = ('unique_id','service_type','name', 'wedding_date', 'location', 'is_pickup', 'email', 'phone', 'email_content', 'sms_content','land','straat','huisnummer','bus','postcode','stad','productvoorraadnummer','jasmaat','vestmaat','broekmaat','services', 'description')  # yeni alanlar eklendi
     readonly_fields = ('unique_id',) 
     def get_urls(self):
@@ -124,6 +125,23 @@ class CustomerAdmin(admin.ModelAdmin):
         return HttpResponseRedirect("..")
 
 
+
+
+    def send_bulk_email(self, request, queryset):
+        for customer in queryset:
+            # Burada her bir müşteri için e-posta gönderme kodunuzu yerleştirebilirsiniz
+            # Örneğin: self.send_email(request, customer.id)
+            self.send_email(request, customer.unique_id)
+
+    def send_bulk_sms(self, request, queryset):
+        for customer in queryset:
+            self.send_sms(request, customer.unique_id)
+
+
+    actions = [send_bulk_email, send_bulk_sms]
+
+
+
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(TailoringService)
 admin.site.register(Location)
@@ -162,7 +180,15 @@ def generate_pdf(customer):
             ["Description", customer.description],
             ["Services", services],
             ["Location", location]
+     
         ]
+
+        new_data = [
+        ["unique_id", customer.unique_id],
+        ["service_type", customer.service_type],
+        ["Wedding Date", customer.wedding_date],
+        ["Services", services]
+    ]
 
         # Tablo stilini ayarlayın
         style = TableStyle([
@@ -180,9 +206,15 @@ def generate_pdf(customer):
         table = Table(data)
         table.setStyle(style)
 
+        new_table = Table(new_data)
+        new_table.setStyle(style)  # Aynı stili kullanabiliriz
         # Tablo boyutunu ayarlayın
         table._argW[0] = 9 * cm
         table._argW[1] = 9 * cm
+
+            # Tablo boyutunu ayarlayın
+        new_table._argW[0] = 9 * cm
+        new_table._argW[1] = 9 * cm
 
             # QR Kodu oluştur
         whatsapp_url = "https://wa.me/32489107182"
@@ -206,6 +238,8 @@ def generate_pdf(customer):
         elements.append(d)  # QR kodu ekleyin
         elements.append(Spacer(1, 10))  # Yükseklik 10 olan bir boşluk ekleyin
         elements.append(whatsapp_text)  # Felemenkçe metni ekleyin
+        elements.append(Spacer(1, 20))  # Yeni bir boşluk ekleyin
+        elements.append(new_table)  # Yeni tabloyu ekleyin
 
         doc.build(elements)
         pdf = buffer.getvalue()

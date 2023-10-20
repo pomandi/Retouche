@@ -102,7 +102,7 @@ msgstr "Services sur mesure"
 msgid "Kaydet"
 msgstr "Enregistrer"
 
-msgid "Siparis"
+msgid "Sipariş"
 msgstr "Commande"
 
 
