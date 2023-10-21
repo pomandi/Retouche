@@ -10,7 +10,7 @@ class CustomerForm(forms.ModelForm):
     )
     name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
-    phone = forms.CharField(required=True)
+    phone = forms.CharField(initial='+31',required=True)
     wedding_date = forms.DateField(required=True, widget=DateInput(attrs={'type': 'date'}))
     is_pickup = forms.BooleanField(required=False)
 
