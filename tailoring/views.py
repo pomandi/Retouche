@@ -33,7 +33,7 @@ def customer_create_view(request):
         customer.services.set(selected_services)
 
         # Set the email_content and sms_content fields after saving the customer.
-        tracking_link = f"http://localhost:8000/en/tailoring/order-status/{customer.tracking_id}"
+        tracking_link = f"https://retouche-ce58e7481386.herokuapp.com/en/tailoring/order-status/{customer.tracking_id}"
         customer.email_content = f"Track your order here: {tracking_link}"
         customer.sms_content = f"Track your order here: {tracking_link}"
         customer.save()  # Save the customer again to update the email_content and sms_content fields.

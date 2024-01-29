@@ -7,7 +7,7 @@ import requests
 def send_email(object_id):
     customer = Customer.objects.get(pk=object_id)
     email_content = customer.email_content
-    tracking_link = f"https://www.yourwebsite.com/order-status/{customer.tracking_id}"
+    tracking_link = f"https://retouche-ce58e7481386.herokuapp.com/en/tailoring/order-status/{customer.tracking_id}"
     email_content = f"{email_content} Track your order here: {tracking_link}"
     email = customer.email
 
@@ -36,7 +36,7 @@ def send_email(object_id):
 
 def send_sms(object_id):
     customer = Customer.objects.get(pk=object_id)
-    tracking_link = f"https://www.yourwebsite.com/order-status/{customer.tracking_id}"
+    tracking_link = f"https://retouche-ce58e7481386.herokuapp.com/en/tailoring/order-status/{customer.tracking_id}"
     sms_content = f"{customer.sms_content} Track your order here: {tracking_link}"
     phone_number = customer.phone
 
