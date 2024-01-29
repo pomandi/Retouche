@@ -52,4 +52,4 @@ class Customer(models.Model):
     email_content = models.TextField(null=True, blank=True, default="Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations.")
     sms_content = models.TextField(null=True, blank=True, default="Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations.")
     description = models.TextField(null=True, blank=True)
- 
+    test_field = models.CharField(max_length=100, null=True, blank=True)
