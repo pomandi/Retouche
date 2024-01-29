@@ -2,12 +2,76 @@
 <html>
 <head>
     <title>Order Status</title>
+    <style>
+        /* CSS stil tanımlamaları */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            color: #444;
+        }
+
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .klaar {
+            background-color: #4CAF50; /* Green */
+        }
+
+        .bezig {
+            background-color: #f44336; /* Red */
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Order Status</h1>
-    <p><strong>Name:</strong> {{ customer.name }}</p>
-    <p><strong>Service Type:</strong> {{ customer.service_type }}</p>
-    <p><strong>Order Status:</strong> {% if customer.order_ready %}Ready{% else %}In Progress{% endif %}</p>
-    <!-- Diğer bilgiler... -->
+    <div class="content">
+        <h1>Order Status</h1>
+        <p><strong>Name:</strong> {{ customer.name }}</p>
+        <p><strong>Service Type:</strong> {{ customer.service_type }}</p>
+        <p><strong>Order Status:</strong> <span class="status {% if customer.order_ready %}klaar{% else %}bezig{% endif %}">{% if customer.order_ready %}Klaar{% else %}Bezig{% endif %}</span></p>
+        <!-- Diğer bilgiler... -->
+
+        <p> Wanneer uw product klaar is, kunt u via deze link een afspraak maken en het product ontvangen.</p>
+        <p> When your product is ready, you can make an appointment via this link and receive the product.</p>
+        <p>Lorsque votre produit est prêt, vous pouvez prendre rendez-vous via ce lien et recevoir le produit. </p>
+        
+        <p><a href="https://afspraak-c9de8f7a05c0.herokuapp.com/en/email-capture/">https://afspraak-c9de8f7a05c0.herokuapp.com/en/email-capture/</a></p>
+
+    </div>
 </body>
 </html>
