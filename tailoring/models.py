@@ -1,4 +1,6 @@
 from django.db import models
+import uuid
+
 
 class Location(models.Model):
     name = models.CharField(max_length=100)
@@ -17,8 +19,8 @@ class TailoringService(models.Model):
 class Customer(models.Model):
     SERVICE_CHOICES = [
         ('', '---------'),  # Boş bir seçenek ekleyin
-        ('siparis', 'Order'),
-        ('terzilik', 'Tailoring Service'),
+        ('Order', 'Order'),
+        ('Tailoring', 'Tailoring Service'),
     ]
     service_type = models.CharField(
         max_length=10,
@@ -27,6 +29,8 @@ class Customer(models.Model):
         blank=False,
         null=False
     )
+    tracking_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False, null=True)
+    order_ready = models.BooleanField(default=False)  # Siparişin hazır olup olmadığını belirtir
     services = models.ManyToManyField('TailoringService', blank=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
     unique_id = models.AutoField(primary_key=True)
@@ -48,3 +52,4 @@ class Customer(models.Model):
     email_content = models.TextField(null=True, blank=True, default="Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations.")
     sms_content = models.TextField(null=True, blank=True, default="Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations.")
     description = models.TextField(null=True, blank=True)
+ 

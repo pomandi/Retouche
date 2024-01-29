@@ -9,6 +9,11 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 import requests
 from datetime import date, timedelta
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Customer
+from .helpers import send_email, send_sms
+from django.utils import timezone
+
 
 def customer_create_view(request):
     form = CustomerForm(request.POST or None)
@@ -27,11 +32,17 @@ def customer_create_view(request):
         customer.save()
         customer.services.set(selected_services)
 
-        # Düğün tarihi kontrolü
-        if customer.wedding_date and customer.wedding_date <= date.today() + timedelta(days=10):
+        # Set the email_content and sms_content fields after saving the customer.
+        tracking_link = f"http://localhost:8000/en/tailoring/order-status/{customer.tracking_id}"
+        customer.email_content = f"Track your order here: {tracking_link}"
+        customer.sms_content = f"Track your order here: {tracking_link}"
+        customer.save()  # Save the customer again to update the email_content and sms_content fields.
+
+        send_email(customer.pk)
+        send_sms(customer.pk)
+        if customer.wedding_date and customer.wedding_date <= timezone.now().date() + timedelta(days=10):
             urgent_weddings = True  # Eğer düğün tarihi 10 gün veya daha azsa, değişkeni True yapın
 
-        # send_notifications(customer)
         return redirect('/tailoring/list/')  # Yönlendirilecek URL
 
     services = TailoringService.objects.all()
@@ -75,3 +86,21 @@ def set_language(request):
         
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+
+def order_ready(request):
+    if request.method == 'POST':
+        unique_id = request.POST.get('unique_id')
+        customer = get_object_or_404(Customer, unique_id=unique_id)
+        customer.order_ready = True  # 'order_ready' adında bir alan ekleyin
+        customer.save()
+        return redirect('customer-list')  # Müşteri listesi sayfasına yönlendir
+
+    return render(request, 'order_ready.html')
+
+
+def order_status(request, tracking_id):
+    customer = get_object_or_404(Customer, tracking_id=tracking_id)
+    context = {
+        'customer': customer,
+    }
+    return render(request, 'order_status.html', context)

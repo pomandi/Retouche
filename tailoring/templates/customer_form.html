@@ -17,8 +17,11 @@
 
     <div style="position: absolute; top: 10px; left: 0; right: 0; margin-bottom: 20px; z-index: 1;">
         <div style="float: left; margin-right: 20px;">
-            <a href="/admin/" class="admin-button">Inloggen</a>
+            <a href="/admin/" class="admin-button">Inloggen</a><br><br><br>
         </div>
+    <div>
+        <a class="order-ready-link" href="{% url 'order_ready' %}">Order Ready</a>
+    </div>
         <div style="float: right;">
             <a href="/en/tailoring/create/" class="language-button">English</a>
             <a href="/fr/tailoring/create/" class="language-button">Français</a>
@@ -45,17 +48,56 @@
 
     <form method="post">
         {% csrf_token %}
-        <label for="{{ form.service_type.id_for_label }}">{% trans "Service Type" %}:</label> {{ form.service_type }}<br>
-        <label for="{{ form.name.id_for_label }}">{% trans "Name" %}:</label> {{ form.name }}<br>
-        <label for="{{ form.email.id_for_label }}">{% trans "Email" %}:</label> {{ form.email }}<br>
-        <label for="{{ form.phone.id_for_label }}">{% trans "Phone" %}:</label> {{ form.phone }}<br>
+        <label for="{{ form.service_type.id_for_label }}">{% trans "Service Type" %}:</label>
+        {{ form.service_type }}
+        {% if form.service_type.errors %}
+            <div class="form-errors">
+                {{ form.service_type.errors }}
+            </div>
+        {% endif %}
+        <br>
+                <!-- Name -->
+        <label for="{{ form.name.id_for_label }}">{% trans "Name" %}:</label>
+        {{ form.name }}
+        {% if form.name.errors %}
+            <div class="form-errors">
+                {{ form.name.errors }}
+            </div>
+        {% endif %}
+        <br>
+                <!-- Email -->
+        <label for="{{ form.email.id_for_label }}">{% trans "Email" %}:</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+            <div class="form-errors">
+                {{ form.email.errors }}
+            </div>
+        {% endif %}
+        <br>
+                <!-- Phone -->
+        <label for="{{ form.phone.id_for_label }}">{% trans "Phone" %}:</label>
+        {{ form.phone }}
+        {% if form.phone.errors %}
+            <div class="form-errors">
+                {{ form.phone.errors }}
+            </div>
+        {% endif %}
+        <br>
+                <!-- Wedding Date -->
+        <!-- Wedding Date -->
         <label for="{{ form.wedding_date.id_for_label }}">{% trans "Wedding Date" %}:</label>
         {% if form.wedding_date %}
-            <input type="text" id="{{ form.wedding_date.id_for_label }}" name="{{ form.wedding_date.name }}" value="{{ form.wedding_date.value|default_if_none:"" }}">
+            <input type="text" id="{{ form.wedding_date.id_for_label }}" name="{{ form.wedding_date.name }}" value="{{ form.wedding_date.value|default_if_none:'' }}">
         {% else %}
             {{ form.wedding_date }}
         {% endif %}
+        {% if form.wedding_date.errors %}
+            <div class="form-errors">
+                {{ form.wedding_date.errors }}
+            </div>
+        {% endif %}
         <br>
+
         <label for="{{ form.is_pickup.id_for_label }}">{% trans "Is Pickup" %}:</label> {{ form.is_pickup }}<br>
         <label for="{{ form.land.id_for_label }}">{% trans "Country" %}:</label> {{ form.land }}<br>
         <label for="{{ form.straat.id_for_label }}">{% trans "Street" %}:</label> {{ form.straat }}<br>

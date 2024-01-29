@@ -22,12 +22,13 @@ from reportlab.graphics.barcode import qr
 from reportlab.graphics.shapes import Drawing
 from reportlab.platypus import Spacer
 from django.contrib import messages
+from django.utils.html import format_html
 
 
 class CustomerAdmin(admin.ModelAdmin):
     change_form_template = 'admin/tailoring/customer_change_form.html'
 
-    list_display = ('unique_id','service_type','name', 'wedding_date', 'location', 'is_pickup', 'email', 'phone')
+    list_display = ('unique_id', 'order_status','service_type','name', 'wedding_date', 'location', 'is_pickup', 'email', 'phone')
     fields = ('unique_id','service_type','name', 'wedding_date', 'location', 'is_pickup', 'email', 'phone', 'email_content', 'sms_content','land','straat','huisnummer','bus','postcode','stad','productvoorraadnummer','jasmaat','vestmaat','broekmaat','services', 'description')  # yeni alanlar eklendi
     readonly_fields = ('unique_id',) 
     def get_urls(self):
@@ -40,6 +41,12 @@ class CustomerAdmin(admin.ModelAdmin):
         ]
         return my_urls + urls
     
+    def order_status(self, obj):
+        if obj.order_ready:
+            return format_html('<button style="background-color: green; color: white;">Hazır</button>')
+        return "Hazırlanıyor"
+    
+    order_status.short_description = 'Sipariş Durumu'
     def print_pdf(self, request, object_id):
             customer = Customer.objects.get(pk=object_id)
             pdf_data = generate_pdf(customer)
@@ -60,7 +67,8 @@ class CustomerAdmin(admin.ModelAdmin):
     def send_email(self, request, object_id):
         customer = Customer.objects.get(pk=object_id)
         email_content = customer.email_content
-        
+        tracking_link = f"https://www.yourwebsite.com/order-status/{customer.tracking_id}"
+        email_content = f"{customer.email_content} Track your order here: {tracking_link}"
         email = customer.email
         if email_content is None:
             self.message_user(request, f"E-posta içeriği boş, {object_id} numaralı müşteriye e-posta gönderilemedi.")
@@ -97,7 +105,8 @@ class CustomerAdmin(admin.ModelAdmin):
     def send_sms(self, request, object_id):
         # Müşteri bilgilerini al
         customer = Customer.objects.get(pk=object_id)
-        
+        tracking_link = f"https://www.yourwebsite.com/order-status/{customer.tracking_id}"
+        sms_content = f"{customer.sms_content} Track your order here: {tracking_link}"
         phone_number = customer.phone  # Müşterinin telefon numarası
 
         api_key = "api-8784277C593411EE90A0F23C91BBF4A0"  # SMTP2GO API anahtarı

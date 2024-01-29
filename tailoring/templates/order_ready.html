@@ -1,0 +1,11 @@
+<!-- order_ready.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{% url 'order_ready' %}" method="post">
+    {% csrf_token %}
+    <label for="unique_id">Sipariş ID:</label>
+    <input type="text" id="unique_id" name="unique_id" required>
+    <button type="submit">Hazır</button>
+</form>
+{% endblock %}
