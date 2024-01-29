@@ -29,7 +29,7 @@ class Customer(models.Model):
         blank=False,
         null=False
     )
-    tracking_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False, null=True)
+    tracking_id = models.UUIDField(default=uuid.uuid4, unique=False, editable=False, null=True)
     order_ready = models.BooleanField(default=False)  # Siparişin hazır olup olmadığını belirtir
     services = models.ManyToManyField('TailoringService', blank=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
