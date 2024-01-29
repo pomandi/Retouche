@@ -11,11 +11,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='customer',
-            name='order_ready',
-            field=models.BooleanField(default=False),
-        ),
+        
         migrations.AddField(
             model_name='customer',
             name='tracking_id',
