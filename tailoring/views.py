@@ -91,11 +91,18 @@ def order_ready(request):
     if request.method == 'POST':
         unique_id = request.POST.get('unique_id')
         customer = get_object_or_404(Customer, unique_id=unique_id)
-        customer.order_ready = True  # 'order_ready' adında bir alan ekleyin
+        customer.order_ready = True
         customer.save()
-        return redirect('customer-list')  # Müşteri listesi sayfasına yönlendir
+
+        # SMS ve e-posta gönderme işlevlerini çağırın.
+        send_email(customer.pk)  # Sadece müşteri ID'sini gönderin.
+        send_sms(customer.pk)  # Sadece müşteri ID'sini gönderin.
+        
+        return redirect('customer-list')
 
     return render(request, 'order_ready.html')
+
+
 
 
 def order_status(request, tracking_id):
@@ -104,3 +111,10 @@ def order_status(request, tracking_id):
         'customer': customer,
     }
     return render(request, 'order_status.html', context)
+
+
+
+        # Sipariş hazır olduğunda müşteriye gönderilecek mesajı oluşturun.
+        # email_subject = "Je Pomandi-bestelling is klaar!"
+        # email_message = f"Beste {customer.name}, U Pomandi bestelling is klaar. U kunt uw bestelling ophalen in onze winkel, vergeet dan niet een afspraak te maken, dank u.https://afspraak-c9de8f7a05c0.herokuapp.com/en/email-capture/"
+        # sms_message = f"Beste {customer.name}, U Pomandi bestelling is klaar. U kunt uw bestelling ophalen in onze winkel, vergeet dan niet een afspraak te maken, dank u.https://afspraak-c9de8f7a05c0.herokuapp.com/en/email-capture/"
