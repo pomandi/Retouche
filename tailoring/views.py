@@ -15,6 +15,42 @@ from .helpers import send_email, send_sms
 from django.utils import timezone
 
 
+# def customer_create_view(request):
+#     form = CustomerForm(request.POST or None)
+#     urgent_weddings = False  # Yeni bir değişken oluşturun
+#     total_price = 0
+
+#     if form.is_valid():
+#         customer = form.save(commit=False)
+#         selected_services = request.POST.getlist('services')
+        
+#         for service_id in selected_services:
+#             service = TailoringService.objects.get(id=service_id)
+#             total_price += service.price
+
+#         customer.total_price = total_price
+#         customer.save()
+#         customer.services.set(selected_services)
+
+#         # Set the email_content and sms_content fields after saving the customer.
+#         tracking_link = f"https://retouche-ce58e7481386.herokuapp.com/en/tailoring/order-status/{customer.tracking_id}"
+#         customer.email_content = f"Track your order here yanlis: {tracking_link}"
+#         customer.sms_content = f"Track your order here, yanslis: {tracking_link}"
+#         customer.save()  # Save the customer again to update the email_content and sms_content fields.
+
+#         send_email(customer.pk)
+#         send_sms(customer.pk)
+#         if customer.wedding_date and customer.wedding_date <= timezone.now().date() + timedelta(days=10):
+#             urgent_weddings = True  # Eğer düğün tarihi 10 gün veya daha azsa, değişkeni True yapın
+
+#         return redirect('/tailoring/list/')  # Yönlendirilecek URL
+
+#     services = TailoringService.objects.all()
+#     context = {'form': form, 'services': services, 'total_price': total_price, 'urgent_weddings': urgent_weddings}
+#     return render(request, 'customer_form.html', context)
+
+
+
 def customer_create_view(request):
     form = CustomerForm(request.POST or None)
     urgent_weddings = False  # Yeni bir değişken oluşturun
@@ -29,28 +65,22 @@ def customer_create_view(request):
             total_price += service.price
 
         customer.total_price = total_price
+        # Hizmetleri ve toplam fiyatı kaydedin
         customer.save()
         customer.services.set(selected_services)
 
-        # Set the email_content and sms_content fields after saving the customer.
-        tracking_link = f"https://retouche-ce58e7481386.herokuapp.com/en/tailoring/order-status/{customer.tracking_id}"
-        customer.email_content = f"Track your order here: {tracking_link}"
-        customer.sms_content = f"Track your order here: {tracking_link}"
-        customer.save()  # Save the customer again to update the email_content and sms_content fields.
-
+        # send_email ve send_sms fonksiyonları zaten müşteriye gerekli bilgileri göndermektedir
         send_email(customer.pk)
         send_sms(customer.pk)
+
         if customer.wedding_date and customer.wedding_date <= timezone.now().date() + timedelta(days=10):
             urgent_weddings = True  # Eğer düğün tarihi 10 gün veya daha azsa, değişkeni True yapın
 
-        return redirect('/tailoring/list/')  # Yönlendirilecek URL
+        return redirect('/tailoring/list/')  # Başarılı işlem sonrası yönlendirme
 
     services = TailoringService.objects.all()
     context = {'form': form, 'services': services, 'total_price': total_price, 'urgent_weddings': urgent_weddings}
     return render(request, 'customer_form.html', context)
-
-
-
 
 
 
@@ -92,6 +122,11 @@ def order_ready(request):
         unique_id = request.POST.get('unique_id')
         customer = get_object_or_404(Customer, unique_id=unique_id)
         customer.order_ready = True
+
+        # Varsayılan email_content ve sms_content değerlerini ayarlayın
+        customer.email_content = 'POMANDI MEN SUIT, Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations ,'
+        customer.sms_content = 'POMANDI MEN SUIT, Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations ,'
+
         customer.save()
 
         # SMS ve e-posta gönderme işlevlerini çağırın.
@@ -101,6 +136,7 @@ def order_ready(request):
         return redirect('customer-list')
 
     return render(request, 'order_ready.html')
+
 
 
 

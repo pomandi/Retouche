@@ -49,6 +49,6 @@ class Customer(models.Model):
     broekmaat = models.IntegerField(null=True, blank=True)
     wedding_date = models.DateField(null=True, blank=True)
     is_pickup = models.BooleanField(default=False)
-    email_content = models.TextField(null=True, blank=True, default="Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations.")
-    sms_content = models.TextField(null=True, blank=True, default="Your order has been prepared, please make your appointment via this link https://booking.appointy.com/nl-NL/pomandi/locations.")
+    email_content = models.TextField(null=True, blank=True)
+    sms_content = models.TextField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)

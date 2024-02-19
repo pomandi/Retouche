@@ -8,7 +8,7 @@ def send_email(object_id):
     customer = Customer.objects.get(pk=object_id)
     email_content = customer.email_content
     tracking_link = f"https://retouche-ce58e7481386.herokuapp.com/en/tailoring/order-status/{customer.tracking_id}"
-    email_content = f"{email_content}POMANDI Track your order here: {tracking_link}"
+    email_content = f"{email_content}POMANDI MEN SUIT,  Track your order here: {tracking_link}"
     email = customer.email
 
     if email_content:
@@ -37,7 +37,7 @@ def send_email(object_id):
 def send_sms(object_id):
     customer = Customer.objects.get(pk=object_id)
     tracking_link = f"https://retouche-ce58e7481386.herokuapp.com/en/tailoring/order-status/{customer.tracking_id}"
-    sms_content = f"{customer.sms_content}POMANDI Track your order here: {tracking_link}"
+    sms_content = f"{customer.sms_content}POMANDI MEN SUIT,  Track your order here: {tracking_link}"
     phone_number = customer.phone
 
     api_key = "api-8784277C593411EE90A0F23C91BBF4A0"
